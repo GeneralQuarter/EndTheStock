@@ -7,3 +7,12 @@ body {
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
 }
+
+.imageDetail{
+    max-width: 90%;
+    max-height: auto;
+}
+
+.blocInformationDetails{
+    float: right;
+}

@@ -1,32 +1,69 @@
 <?php include 'header.php' ?>
 <?php include 'navbar.php' ?>
 
+<?php 
+    if ($isBD) {
+        $res = $bd->query('SELECT * FROM PRODUIT');
+    }
+
+    $produits = [];
+    if($res !== false) while($row = $res->fetch_assoc()){
+        $produits[] = new Produit($row['ID_PRODUIT'], $row['NOM_PRODUIT'], $row['DESCRIPTION'], 
+                $row['CATEGORIE'], $row['PRIX'], $row['TAXE'], 
+                $row['IMAGE'], $row['ALT']);
+    }
+?>
+
 <div class="jumbotron">
     <div class="container">
         <h1>EndTheStock</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <?php include('admin/page/index.html'); ?>
+        <?php if($isUserConnected && $isUserAdmin){ ?>    
+        <p><a class="btn btn-primary pull-right" role="button" data-toggle="modal" data-target="#editPresentation">Modifier la présentation</a></p>
+        <?php } ?>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <?php foreach($produits as $produit){ ?>
+            <div class="col-md-4">
+                <img src="<?php echo $produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:304px;height:228px;">
+                <h2><?php echo $produit->getNom(); ?></h2>
+                <p><?php echo $produit->getPrix(); ?> $ CAD</p>
+                <p><a class="btn btn-default" href="admin/produit/detail.php?id=<?php echo $produit->getId(); ?>" role="button">Détails</a></p>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" id="editPresentation" tabindex="-1" role="dialog" aria-labelledby="Editer Presentation">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Modifier le texte de présentation</h3>
+            </div>
+            <form action="admin/page/editer.php" method="POST">
+            <div class="modal-body">
+                <input type="hidden" id="page" name="page" value="index" />
+                <textarea name="editeur" id="editeur" rows="10" cols="80">
+                    <?php echo file_get_contents('admin/page/index.html') ?>
+                </textarea>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <input type="submit" class="btn btn-success"  id="comfirmButton" value="Confirmer">
+            </div>
+            </form>
         </div>
     </div>
 </div>
 
 <?php include 'footer.php' ?>
+<script src="ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'editeur' );
+</script>

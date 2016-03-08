@@ -7,7 +7,7 @@ if(!$isUserConnected) {
 }
 
 if(!$isUserAdmin){
-    header('Location: ../../accesRestraint.php?page=editerProduit.php');
+    header('Location: ../../403.php?page=editerProduit.php');
 }
 
 if(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS) !== false){

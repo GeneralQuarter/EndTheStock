@@ -62,7 +62,7 @@ if($res !== false) while($row = $res->fetch_assoc()){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <a type="button" class="btn btn-danger"  id="comfirmButton" href="retirer.php">Comfirmer</a>
+                <a type="button" class="btn btn-danger"  id="comfirmButton" href="retirer.php">Confirmer</a>
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@ if($res !== false) while($row = $res->fetch_assoc()){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <input type="submit" class="btn btn-success"  id="comfirmButton" value="Comfirmer">
+                <input type="submit" class="btn btn-success"  id="comfirmButton" value="Confirmer">
             </div>
             </form>
         </div>
