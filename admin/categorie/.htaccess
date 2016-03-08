@@ -1,0 +1,7 @@
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
+
+<Files Categorie.php>
+Order deny,allow
+deny from all
+</Files>

@@ -1,0 +1,23 @@
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
+DirectoryIndex index.php
+
+<Files footer.php>
+Order deny,allow
+deny from all
+</Files>
+
+<Files header.php>
+Order deny,allow
+deny from all
+</Files>
+
+<Files navbar.php>
+Order deny,allow
+deny from all
+</Files>
+
+<Files session.php>
+Order deny,allow
+deny from all
+</Files>
