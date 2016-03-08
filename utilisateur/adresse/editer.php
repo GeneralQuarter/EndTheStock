@@ -18,9 +18,12 @@
                 . 'VALUES (\'' . $adresse->getNumero_civique() . '\',\'' . $adresse->getRue() . '\',\'' 
                 . $adresse->getVille() . '\',\''. $adresse->getDepartement() . '\',\''
                 . $adresse->getRegion(). '\',\'' . $adresse->getPays() . '\')')){
-            echo $user->getId();
             if($bd->query("UPDATE UTILISATEUR SET ADRESSE=LAST_INSERT_ID() WHERE ID_UTILISATEUR = " . $user->getId())){
-                $user->setAdresse_id("SELECT ADRESSE FROM UTILISATEUR WHERE ID_UTILISATEUR =" . $user->getId());
+                $res = $bd->query("SELECT ADRESSE FROM UTILISATEUR WHERE ID_UTILISATEUR =" . $user->getId());
+                $row = $res->fetch_assoc();
+                $user->setAdresse_id($row['ADRESSE']);
+                echo $user->getAdresse_id();
+                $_SESSION['user'] = serialize($user);
                 header('Location: ../profil.php');
             }
         }

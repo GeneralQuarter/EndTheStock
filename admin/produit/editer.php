@@ -88,7 +88,7 @@ if(isset($_POST) && !empty($_POST)){
     $produit = new Produit(null, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
     
     if($isBD){
-        $bd->query();
+        $bd->query("INSERT INTO PRODUIT(NOM_PRODUIT, DESCRPTION, CATEGORIE, PRIX, )");
     }
 }else{
     $nomProduit = "";
