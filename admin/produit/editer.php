@@ -9,8 +9,6 @@ if (!$isUserAdmin) {
     header('Location: ../../403.php?page=editerProduit.php');
 }
 
-include '../../navbar.php';
-
 if($isBD){
     $res = $bd->query("SELECT * FROM CATEGORIE");
 }
@@ -75,30 +73,35 @@ if(isset($_POST) && !empty($_POST)){
     }else{
         $url = "NULL";
     }
-    $nomProduit = $_POST['nom'];
-    $descProduit = $_POST['desc'];
-    $categorieID = $_POST['categorie'];
-    $prix = $_POST['prix'];
-    $taxe = $_POST['taxe'];
-    if(isset($_POST['alt'])){
-        $legendeImage = "'".$_POST['alt']."'";
-    }else{
-        $legendeImage = 'NULL';
-    }
-    $produit = new Produit(null, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
-    
     if($isBD){
-        $bd->query("INSERT INTO PRODUIT(NOM_PRODUIT, DESCRPTION, CATEGORIE, PRIX, )");
+        $nomProduit = $bd->escape_string($_POST['nom']);
+        $descProduit = $bd->escape_string($_POST['desc']);
+        $categorieID = $_POST['categorie'];
+        $prix = $_POST['prix'];
+        $taxe = $_POST['taxe'];
+        if(isset($_POST['alt'])){
+            $legendeImage = "'".$_POST['alt']."'";
+        }else{
+            $legendeImage = 'NULL';
+        }
+        $produit = new Produit(null, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
+        
+        if(!$erreurUpload){
+            $query = "INSERT INTO PRODUIT(NOM_PRODUIT, DESCRIPTION, CATEGORIE, PRIX, TAXE, IMAGE, ALT) VALUES "
+                        . "('".$produit->getNom()."', '".$produit->getNom()."', ".$produit->getCategorieID().", ".$produit->getPrix().", ".$produit->getTaxe().", ".$produit->getUrlImage().", ".$produit->getAltImage().")";
+            if(!$bd->query($query)){
+                $erreurInsert = "Erreur d'insertion : " . $query;
+            }else{
+                header('Location: ../../');
+            }
+        }
     }
 }else{
-    $nomProduit = "";
-    $descProduit = "";
-    $categorieID = "";
-    $prix = "";
-    $taxe = "";
-    $legendeImage = "";
+    $produit = new Produit("", "", "", "", "", "", "", "");
 }
 ?>
+
+<?php include '../../navbar.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -108,35 +111,40 @@ if(isset($_POST) && !empty($_POST)){
                 <div class="alert alert-danger" role="alert">Erreur d'upload : <?php echo $erreurUpload ?></div>
             <?php }
         ?>
+        <?php 
+            if(!empty($erreurInsert)){ ?>
+                <div class="alert alert-danger" role="alert">Erreur d'insertion : <?php echo $erreurInsert ?></div>
+            <?php }
+        ?>
         <form class="horizontal-form" action="" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
             <div class="form-group">
                 <label for="inputNomProduit" >Nom du produit</label>
-                <input type="text" id="inputNomProduit" name="nom" class="form-control" maxlength="50" value="<?php echo $nomProduit ?>" required/>
+                <input type="text" id="inputNomProduit" name="nom" class="form-control" maxlength="50" value="<?php echo $produit->getNom() ?>" required/>
             </div>
             <div class="form-group">
                 <label for="inputDescProduit" >Description</label>
-                <textarea type="text" id="inputDescProduit" name="desc" class="form-control" value="<?php echo $descProduit ?>" required></textarea>
+                <textarea type="text" id="inputDescProduit" name="desc" class="form-control" value="<?php echo $produit->getDesc() ?>" required></textarea>
             </div>
             <div class="form-group">
                 <label for="inputCategorieProduit" >Catégorie</label>
                 <select name="categorie">
                     <?php foreach($categories as $categorie){ ?>
-                    <option value="<?php echo $categorie->getId() ?>" <?php echo ($categorieID === $categorie->getId())? 'selected="selected"': ''; ?>><?php echo $categorie->getNom() ?></option>
+                    <option value="<?php echo $categorie->getId() ?>" <?php echo ($produit->getCategorieID() === $categorie->getId())? 'selected="selected"': ''; ?>><?php echo $categorie->getNom() ?></option>
                     <?php } ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="inputPrixProduit">Prix</label>
                 <div class="input-group">
-                    <input class="form-control" type="money" id="inpuutPrixProduit" name="prix" max="9999.99" min="0000.01" value="<?php echo $prix ?>" required/>
+                    <input class="form-control" type="money" id="inpuutPrixProduit" name="prix" max="9999.99" min="0000.01" value="<?php echo $produit->getPrix() ?>" required/>
                     <span class="input-group-addon">$ CAD</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputTaxeProduit">Taxe</label>
                 <div class="input-group">
-                    <input class="form-control" type="number" id="inputTaxeProduit" name="taxe" max="99.99" min="0" value="<?php echo $taxe ?>" required/>
+                    <input class="form-control" type="number" id="inputTaxeProduit" name="taxe" max="99.99" min="0" value="<?php echo $produit->getTaxe() ?>" required/>
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
@@ -147,7 +155,7 @@ if(isset($_POST) && !empty($_POST)){
             </div>
             <div class="form-group">
                 <label for="inputAltImageProduit">Légende image</label>
-                <input class="form-control" id="inputAltImageProduit" type="text" name="alt" maxlength="50" value="<?php echo $legendeImage ?>" />
+                <input class="form-control" id="inputAltImageProduit" type="text" name="alt" maxlength="50" value="<?php echo $produit->getAltImage() ?>" />
             </div>
             <input style="width:100px" type="submit" value="Ajouter" class="btn btn-success pull-right" name="submit" />
         </form>
