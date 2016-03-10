@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of LigneCommande
@@ -17,7 +12,7 @@ class LigneCommande {
     
     function __construct($quantitee, $produit){
         $this->quantitee = $quantitee;
-        $this->produit = $produit;
+        $this->produit = serialize($produit);
     }
     
     function getQuantitee() {
@@ -25,7 +20,7 @@ class LigneCommande {
     }
     
     function getProduit() {
-        return $this->produit;
+        return unserialize($this->produit);
     }
 
     function setQuantitee($quantitee) {
@@ -33,6 +28,6 @@ class LigneCommande {
     }
     
     function setProduit($produit) {
-        $this->produit = $produit;
+        $this->produit = serialize($produit);
     }
 }

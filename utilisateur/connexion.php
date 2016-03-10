@@ -19,8 +19,8 @@ if (isset($_POST) && !empty($_POST)) {
 
             $_SESSION['user'] = serialize($user);
             
-            $panier = [];
-            $_SESSION['panier']=$panier;
+            $commande = new Commande();
+            $_SESSION['commande']= serialize($commande);
             header('Location: ../');
         }else{
             echo 'Erreur de connexion';

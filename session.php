@@ -6,6 +6,8 @@ include 'utilisateur/User.php';
 include 'admin/categorie/Categorie.php';
 include 'admin/produit/Produit.php';
 include 'utilisateur/panier/LigneCommande.php';
+include 'utilisateur/panier/Commande.php';
+include 'constantes.php';
 
 if(isset($_SESSION['user'])){
     $isUserConnected = true;
@@ -19,3 +21,9 @@ if(isset($_SESSION['user'])){
     $isUserConnected = false;
 }
 
+if(isset($_SESSION['commande'])){
+    $isCommande = true;
+    $commande = unserialize($_SESSION['commande']);
+}else{
+    $isCommande = false;
+}

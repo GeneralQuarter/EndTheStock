@@ -28,7 +28,7 @@
     <div class="row">
         <?php foreach($produits as $produit){ ?>
             <div class="col-md-4">
-                <img src="<?php echo $produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:304px;height:228px;">
+                <img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:304px;height:228px;">
                 <h2><?php echo $produit->getNom(); ?></h2>
                 <p><?php echo $produit->getPrix(); ?> $ CAD</p>
                 <p><a class="btn btn-default" href="admin/produit/detail.php?id=<?php echo $produit->getId(); ?>" role="button">Détails</a></p>

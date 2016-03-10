@@ -1,13 +1,20 @@
 <?php include '../../header.php'; 
 
+if(!$isUserConnected) {
+    header('Location: ../../index.php');
+}
+
 if(isset($_POST['quantitee']) && isset($_POST['produit'])){
-    $ligneCommande = new LigneCommande($_POST['quantitee'],$_POST['produit']);
-    $_SESSION['panier']+=$ligneCommande;
-    echo $_POST['quantitee'];
+    $produit = unserialize(base64_decode($_POST['produit']));
+    if($isCommande){
+        $commande->ajouterLigne($produit, $_POST['quantitee']);
+        $_SESSION['commande'] = serialize($commande);
+        
+    }
 }
 
 
-//header('Location: panier.php');
+header('Location: consulter.php');
 
 ?>
 

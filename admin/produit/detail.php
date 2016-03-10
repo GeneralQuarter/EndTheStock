@@ -16,7 +16,7 @@
     <div class="container" style="padding-top: 2%;" >
     <div class="row">
         
-        <div class="col-md-6" ><img src="<?php echo $produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage();?>" class="imageDetail"></div>
+        <div class="col-md-6" ><img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage();?>" class="imageDetail"></div>
             <div class="col-md-6">
                 <div class="row">
                     <h1 class="pull-left"><?php echo $produit->getNom(); ?></h1>
@@ -28,11 +28,11 @@
                 <div class="row">
                     <h4 class="pull-left">Taxes : <?php echo $produit->getTaxe(); ?> %</h4>
                     <?php if($isUserConnected) { ?>
-                    <form  action="../../utilisateur/panier/ajouter.php">
+                    <form  action="../../utilisateur/panier/ajouter.php" method="POST">
                         
                         <button type="submit" class="btn btn-primary pull-right" role="button" value=""><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"/></button>
                         <div class="input-group pull-right" style="width: 150px;"><span class="input-group-addon">Quantitée</span> <input class="form-control" type="number" value="1" style="width : 60px;" max="99" name="quantitee"/></div>
-                        <input type="hidden" value="<?php $produit ?>" name="produit"/>
+                        <input type="hidden" value="<?php echo base64_encode(serialize($produit)); ?>" name="produit"/>
                     </form>
                     <?php }else{ ?>
                     <p class="pull-right">Connectez vous pour commander cet article</p>

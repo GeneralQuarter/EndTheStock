@@ -6,7 +6,7 @@ if(!$isUserConnected) {
 }
 
 if(!$isUserAdmin){
-    header('Location: ../../accesRestraint.php?page=editerProduit.php');
+    header('Location: ../../403.php?page=editerProduit.php');
 }
 
 include '../../navbar.php'; ?>
