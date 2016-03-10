@@ -1,0 +1,6 @@
+<?php
+
+$documentRoot = "/GitEndTheStock/EndTheStock";
+
+?>
+
