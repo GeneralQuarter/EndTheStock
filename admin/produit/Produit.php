@@ -49,7 +49,7 @@ class Produit {
     }
 
     function getPrix() {
-        return $this->prix;
+        return $this->prix + 0;
     }
 
     function getTaxe() {

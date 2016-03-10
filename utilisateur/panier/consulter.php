@@ -32,14 +32,13 @@ if($isCommande){
                 <td class="vert-align" style="width: 100px;"><img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage();?>" class="imagePanier"></td>
                 <td class="vert-align" style="width: 200px;"><?php echo $produit->getNom(); ?></td>
                 <td class="vert-align" style="text-align: center; width: 100px;"><?php echo $ligne->getQuantitee(); ?></td>
-                <td class="vert-align"><?php echo $ligne->getQuantitee()*$produit->getPrix(); ?> $ CAD</td>
-                <td class="vert-align"><?php echo number_format($ligne->getQuantitee()*$produit->getPrix()*((100+$produit->getTaxe())/100),2); ?> $ CAD</td>
+                <td class="vert-align"><?php echo $ligne->getPrixHorsTaxeString(); ?> $ CAD</td>
+                <td class="vert-align"><?php echo $ligne->getPrixAvecTaxeString(); ?> $ CAD</td>
                 <td class="vert-align"><a class="btn btn-danger pull-right" href="#" role="button">Supprimer</a></td>
             </tr>
-            <?php $prixTotalTaxe += $ligne->getQuantitee()*$produit->getPrix()*((100+$produit->getTaxe())/100); ?>
         <?php } ?>
         </table>
-        <h3 class="pull-right" >Prix total avec taxe : <?php echo number_format($prixTotalTaxe,2); ?> $ CAD</h3>
+        <h3 class="pull-right" >Prix total avec taxe : <?php echo $commande->getPrixAvecTaxeString() ?> $ CAD</h3>
     </div>
     <div class="row"><a class="btn btn-success pull-right" href="enregistrerCommande.php" role="button">Passer la commande ...</a></div>
     

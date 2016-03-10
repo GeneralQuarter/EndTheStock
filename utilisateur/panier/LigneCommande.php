@@ -30,4 +30,21 @@ class LigneCommande {
     function setProduit($produit) {
         $this->produit = serialize($produit);
     }
+    
+    function getPrixHorsTaxeString(){
+        return preg_replace('~\.0+$~','',number_format($this->getPrixHorsTaxe(), 2, '.', ' '));
+    }
+    
+    function getPrixHorsTaxe(){
+        return unserialize($this->getProduit())->getPrix()*$this->quantitee;
+    }
+    
+    function getPrixAvecTaxeString(){
+        return preg_replace('~\.0+$~','',number_format($this->getPrixAvecTaxe(), 2, '.', ' '));
+    }
+    
+    function getPrixAvecTaxe(){
+        $produit = unserialize($this->getProduit());
+        return $this->quantitee*$produit->getPrix()*((100+$produit->getTaxe())/100);
+    }
 }

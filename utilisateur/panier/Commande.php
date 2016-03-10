@@ -30,6 +30,28 @@ class Commande {
         return $nombre;
     }
     
+    function getPrixHorsTaxeString(){
+        $total = 0;
+        /* @var $ligne LigneCommande*/
+        foreach($this->lignes as $ligne){
+            $ligne = unserialize($ligne);
+            $total += $ligne->getPrixHorsTaxe();
+        }
+        
+        return preg_replace('~\.0+$~','',number_format($total, 2, '.', ' '));
+    }
+    
+    function getPrixAvecTaxeString(){
+        $total = 0;
+        /* @var $ligne LigneCommande*/
+        foreach($this->lignes as $ligne){
+            $ligne = unserialize($ligne);
+            $total += $ligne->getPrixAvecTaxe();
+        }
+        
+        return preg_replace('~\.0+$~','',number_format($total, 2, '.', ' '));
+    }
+    
     function ajouterLigne($produit, $quantitee){
         $estPresent=false;
         /* @var $ligne LigneCommande*/

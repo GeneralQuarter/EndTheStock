@@ -144,7 +144,7 @@ if(isset($_POST) && !empty($_POST)){
             <div class="form-group">
                 <label for="inputTaxeProduit">Taxe</label>
                 <div class="input-group">
-                    <input class="form-control" type="number" id="inputTaxeProduit" name="taxe" max="99.99" min="0" value="<?php echo $produit->getTaxe() ?>" required/>
+                    <input class="form-control" type="number" id="inputTaxeProduit" name="taxe" max="99.99" step="0.01" min="0" value="<?php echo $produit->getTaxe() ?>" required/>
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
