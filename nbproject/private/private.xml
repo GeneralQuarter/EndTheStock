@@ -3,34 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/DEV/SHARED/EndTheStock/index.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/retirer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/bd/ddl.sql</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/connexion.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/categorie/retirer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/categorie/consulter.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/page/editer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/profil.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/404.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/categorie/.htaccess</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/403.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/categorie/Categorie.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/footer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/navbar.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/.htaccess</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/consulter.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/enregistrement.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/categorie/editer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/css/style.css</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/.htaccess</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/bd/BD.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/produit/editer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/session.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/deconnexion.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/produit/consulter.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/admin/produit/retirer.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/header.php</file>
-            <file>file:/C:/DEV/SHARED/EndTheStock/utilisateur/User.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/navbar.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/utilisateur/adresse/Adresse.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/utilisateur/panier/consulter.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/utilisateur/panier/LigneCommande.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/admin/produit/detail.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/utilisateur/connexion.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/session.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/utilisateur/panier/ajouter.php</file>
+            <file>file:/var/vpivet/html/GitEndTheStock/EndTheStock/admin/categorie/consulter.php</file>
         </group>
     </open-files>
 </project-private>
