@@ -1,3 +1,13 @@
+<?php 
+$categories = [];
+if($isBD){
+    $res = $bd->query("SELECT * FROM CATEGORIE");
+    
+    if($res !== false) while($row = $res->fetch_assoc()){
+        $categories[] = new Categorie($row['ID_CATEGORIE'], $row['NOM_CATEGORIE']);
+    }
+} ?>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -10,19 +20,47 @@
             <a class="navbar-brand" href="<?php echo $documentRoot ?>/">EndTheStock</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;Catégories <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php foreach($categories as $categorie){ ?>
+                        <li><a href="search.php?categorie=<?php echo $categorie->getId() ?>"><?php echo $categorie->getNom() ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" action="search.php" method="GET">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" placeholder="Nom du produit" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
             <?php if (!$isUserConnected) { ?>
-                <button class="btn btn-default pull-right" style="margin-top:8px;margin-left:5px" data-toggle="modal" data-target="#registerForm">S'inscrire</button>
-                <form class="navbar-form navbar-right" action="<?php echo $documentRoot ?>/utilisateur/connexion.php" method="POST">
-                    <div class="form-group">
-                        <input type="text" placeholder="Pseudo" name="pseudo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Mot de passe" name="mdp" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success">Connexion</button>
-                </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false">Connexion <span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="min-width: 300px; padding: 10px;">
+                        <form action="<?php echo $documentRoot ?>/utilisateur/connexion.php" method="POST">
+                            <div class="form-group">
+                                <input type="text" placeholder="Pseudo" name="pseudo" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Mot de passe" name="mdp" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-success">Connexion</button>
+                        </form>
+                        <button class="btn btn-default pull-right" style="margin-top:-35px;" data-toggle="modal" data-target="#registerForm">S'inscrire</button>
+                    </ul>
+                </li>
+            </ul>               
             <?php } else { ?>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="<?php echo $documentRoot ?>/utilisateur/panier/consulter.php"><span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge">0</span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><?php echo $user->getPseudo(); ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
