@@ -26,7 +26,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><?php echo $user->getPseudo(); ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="./utilisateur/profil.php">Profil</a></li>
+                            <li><a href="<?php echo $documentRoot ?>/utilisateur/profil.php">Profil</a></li>
+                            <li><a href="<?php echo $documentRoot ?>/utilisateur/panier/consulter.php">Panier</a></li>
                             <?php if($isUserAdmin) { ?>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?php echo $documentRoot ?>/admin/categorie/consulter.php">Consulter catégories</a>

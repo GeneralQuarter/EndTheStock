@@ -28,10 +28,11 @@
                 <div class="row">
                     <h4 class="pull-left">Taxes : <?php echo $produit->getTaxe(); ?> %</h4>
                     <?php if($isUserConnected) { ?>
-                    <form  action="../../index.php">
+                    <form  action="../../utilisateur/panier/ajouter.php">
                         
                         <button type="submit" class="btn btn-primary pull-right" role="button" value=""><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"/></button>
-                        <div class="input-group pull-right" style="width: 150px;"><span class="input-group-addon">Quantitée</span> <input class="form-control" type="number" value="1" style="width : 60px;" max="99"/></div>
+                        <div class="input-group pull-right" style="width: 150px;"><span class="input-group-addon">Quantitée</span> <input class="form-control" type="number" value="1" style="width : 60px;" max="99" name="quantitee"/></div>
+                        <input type="hidden" value="<?php $produit ?>" name="produit"/>
                     </form>
                     <?php }else{ ?>
                     <p class="pull-right">Connectez vous pour commander cet article</p>

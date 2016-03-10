@@ -18,6 +18,9 @@ if (isset($_POST) && !empty($_POST)) {
             $user->setTelephone($row['TELEPHONE']);
 
             $_SESSION['user'] = serialize($user);
+            
+            $panier = [];
+            $_SESSION['panier']=$panier;
             header('Location: ../');
         }else{
             echo 'Erreur de connexion';
