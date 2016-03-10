@@ -20,6 +20,16 @@ class Commande {
         return $this->lignes;
     }
     
+    function getNombreArticles(){
+        $nombre = 0;
+        /* @var $ligne LigneCommande*/
+        foreach($this->lignes as $ligne){
+            $ligne = unserialize($ligne);
+            $nombre+=$ligne->getQuantitee();
+        }
+        return $nombre;
+    }
+    
     function ajouterLigne($produit, $quantitee){
         $estPresent=false;
         /* @var $ligne LigneCommande*/

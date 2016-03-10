@@ -21,6 +21,19 @@ if($isBD){
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <?php if($isUserConnected && $isUserAdmin){ ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administration <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo $documentRoot ?>/admin/categorie/consulter.php">Gestion catégories</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="<?php echo $documentRoot ?>/admin/produit/editer.php">Ajouter un produit</a>
+                        <li><a href="<?php echo $documentRoot ?>/admin/produit/consulter.php">Gestion produits</a>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="<?php echo $documentRoot ?>/utilisateur/consulter.php">Gestion utilisateurs</a>
+                    </ul>
+                </li>
+                <?php } ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;Catégories <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -43,7 +56,7 @@ if($isBD){
             <?php if (!$isUserConnected) { ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false">Connexion <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Connexion <span class="caret"></span></a>
                     <ul class="dropdown-menu" style="min-width: 300px; padding: 10px;">
                         <form action="<?php echo $documentRoot ?>/utilisateur/connexion.php" method="POST">
                             <div class="form-group">
@@ -60,25 +73,9 @@ if($isBD){
             </ul>               
             <?php } else { ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo $documentRoot ?>/utilisateur/panier/consulter.php"><span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge">0</span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><?php echo $user->getPseudo(); ?> <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $documentRoot ?>/utilisateur/profil.php">Profil</a></li>
-                            <li><a href="<?php echo $documentRoot ?>/utilisateur/panier/consulter.php">Panier</a></li>
-                            <?php if($isUserAdmin) { ?>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $documentRoot ?>/admin/categorie/consulter.php">Consulter catégories</a>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $documentRoot ?>/admin/produit/editer.php">Ajouter un produit</a>
-                            <li><a href="<?php echo $documentRoot ?>/admin/produit/consulter.php">Consulter produits</a>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $documentRoot ?>/utilisateur/consulter.php">Consulter utilisateurs</a>
-                            <?php } ?>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo $documentRoot ?>/utilisateur/deconnexion.php">Déconnexion</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="<?php echo $documentRoot ?>/utilisateur/panier/consulter.php"><span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge"><?php echo $commande->getNombreArticles() ?></span></a></li>
+                    <li><a href="<?php echo $documentRoot ?>/utilisateur/profil.php"><span class="glyphicon glyphicon-user"></span> <?php echo $user->getPseudo() ?></a></li>
+                    <li><a href="<?php echo $documentRoot ?>/utilisateur/deconnexion.php"><span class="glyphicon glyphicon-off"></span></a></li>
                 </ul>
             <?php } ?>
         </div>
