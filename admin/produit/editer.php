@@ -80,7 +80,7 @@ if(isset($_POST) && !empty($_POST)){
         $prix = $_POST['prix'];
         $taxe = $_POST['taxe'];
         if(isset($_POST['alt'])){
-            $legendeImage = "'".$_POST['alt']."'";
+            $legendeImage = "'".$bd->escape_string($_POST['alt'])."'";
         }else{
             $legendeImage = 'NULL';
         }
@@ -88,7 +88,7 @@ if(isset($_POST) && !empty($_POST)){
         
         if(!$erreurUpload){
             $query = "INSERT INTO PRODUIT(NOM_PRODUIT, DESCRIPTION, CATEGORIE, PRIX, TAXE, IMAGE, ALT) VALUES "
-                        . "('".$produit->getNom()."', '".$produit->getNom()."', ".$produit->getCategorieID().", ".$produit->getPrix().", ".$produit->getTaxe().", ".$produit->getUrlImage().", ".$produit->getAltImage().")";
+                        . "('".$produit->getNom()."', '".$produit->getDesc()."', ".$produit->getCategorieID().", ".$produit->getPrix().", ".$produit->getTaxe().", ".$produit->getUrlImage().", ".$produit->getAltImage().")";
             if(!$bd->query($query)){
                 $erreurInsert = "Erreur d'insertion : " . $query;
             }else{

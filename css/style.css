@@ -13,6 +13,11 @@ body {
     max-height: auto;
 }
 
+.imagePanier{
+    max-width: auto;
+    height: 40px;
+}
+
 .blocInformationDetails{
     float: right;
 }
