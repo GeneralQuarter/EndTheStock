@@ -21,3 +21,40 @@ body {
 .blocInformationDetails{
     float: right;
 }
+
+@font-face { 
+  font-family: DarkTime; 
+  src: url("Mona Shark.otf"); 
+}
+
+
+@font-face { 
+  font-family: Orange; 
+  src: url("orange juice 2.0.ttf"); 
+}
+
+#titreSite{
+  color : #E0E0E0;
+  font-size: 100px;
+  font-family: DarkTime, Georgia, serif;
+}
+
+#titreNav{
+    font-size: 30px;
+  font-family: DarkTime, Georgia, serif;
+}
+
+.titreRubrique{
+    font-size: 60px;
+  font-family: Orange, Georgia, serif;
+}
+
+.titreBloc{
+    font-size: 32px;
+    color : black;
+  font-family: Orange, Georgia, serif;
+}
+
+#textPresentation p, #textPresentation ul ,#textPresentation ol{
+    color: white;
+}

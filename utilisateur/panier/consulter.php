@@ -41,6 +41,7 @@ if($isCommande){
         <h3 class="pull-right" >Prix total avec taxe : <?php echo $commande->getPrixAvecTaxeString() ?> $ CAD</h3>
     </div>
     <div class="row"><a class="btn btn-success pull-right" href="enregistrerCommande.php" role="button">Passer la commande ...</a></div>
+    <div class="row"><a class="btn btn-danger pull-left" href="viderPanier.php" role="button">Vider le panier</a></div>
     
 </div>
             

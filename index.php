@@ -14,10 +14,10 @@
     }
 ?>
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>EndTheStock</h1>
-        <?php include('admin/page/index.html'); ?>
+<div class="jumbotron" style="background-image: url(<?php echo $documentRoot; ?>/img/fond/fond.png)">
+    <div class="container" >
+        <h1 id="titreSite">END THE STOCK</h1>
+        <div id="textPresentation"><?php include('admin/page/index.html'); ?></div>
         <?php if($isUserConnected && $isUserAdmin){ ?>    
         <p><a class="btn btn-primary pull-right" role="button" data-toggle="modal" data-target="#editPresentation">Modifier la présentation</a></p>
         <?php } ?>
@@ -28,8 +28,8 @@
     <div class="row">
         <?php foreach($produits as $produit){ ?>
             <div class="col-md-4">
-                <img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:304px;height:228px;">
-                <h2><?php echo $produit->getNom(); ?></h2>
+                <img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:auto;height:280px;">
+                <h2 class="titreBloc"><?php echo $produit->getNom(); ?></h2>
                 <p><?php echo $produit->getPrix(); ?> $ CAD</p>
                 <p><a class="btn btn-default" href="admin/produit/detail.php?id=<?php echo $produit->getId(); ?>" role="button">Détails</a></p>
             </div>

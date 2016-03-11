@@ -21,7 +21,7 @@ if($isUserConnected){
     ?>
 <div class="container">
     <div class="row">
-        <h3>Profil de <?php echo $user->getPrenom() . ' ' . $user->getNom() ?></h3>
+        <h3 class="titreRubrique">Profil de <?php echo $user->getPrenom() . ' ' . $user->getNom() ?></h3>
         <p>Identifiant :  <?php echo $user->getPseudo() ?> </p>
         <p>Numéro de Télephone :  <?php echo $user->getTelephone() ?> </p><BR>
         <h4>Adresse</h4>

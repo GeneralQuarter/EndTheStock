@@ -19,7 +19,7 @@
         <div class="col-md-6" ><img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage();?>" class="imageDetail"></div>
             <div class="col-md-6">
                 <div class="row">
-                    <h1 class="pull-left"><?php echo $produit->getNom(); ?></h1>
+                    <h1 class="pull-left titreRubrique"><?php echo $produit->getNom(); ?></h1>
                     <h3 class="pull-right" ><?php echo $produit->getPrix(); ?> $ CAD</h3>
                 </div>
                 <div class="row">

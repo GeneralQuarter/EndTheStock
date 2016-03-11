@@ -8,7 +8,7 @@ if ($isCommande) {
         if (!$bd->query($query)) {
             echo 'Erreur d\'insertion commande : '. $query . '<br>';
         } else {
-            echo 'Insertion commande réussie';
+            //echo 'Insertion commande réussie';
         }
     } 
 
@@ -20,10 +20,11 @@ if ($isCommande) {
             if (!$bd->query($query)) {
                 echo 'Erreur d\'insertion ligne : ' . $query . '<br>';
             } else {
-                echo 'Insertion ligne réussie';
+                //echo 'Insertion ligne réussie';
             }
          }
-    
+         
+         $_SESSION['commande']=  serialize(new Commande());
 ?>
 
 <div class="container">
@@ -34,7 +35,7 @@ if ($isCommande) {
         <a role="button" class="btn btn-primary" href='<?php echo $documentRoot ?>/'>Retour vers l'accueil</a>
     </div>
 </div>
-
+    
     <?php include '../../footer.php';
 }else{
     //Erreur... Affichage ??
