@@ -1,8 +1,22 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+include '../../header.php';
+
+if(!$isUserConnected) {
+    header('Location: ../../index.php');
+}
+
+if(!$isUserAdmin){
+    header('Location: ../../403.php?page=editerProduit.php');
+}
+
+if(isset($_GET['id']) && !empty($_GET['id'])){
+    if($isBD){
+        if(!$bd->query("DELETE FROM PRODUIT WHERE ID_PRODUIT=".$_GET['id'])){
+            echo "Erreur de suppression";
+        }else{
+            header('Location: consulter.php');
+        }
+    }
+}
 

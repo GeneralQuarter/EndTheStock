@@ -30,7 +30,7 @@ function codeToMessage($code)
                 $message = "Votre fichier a été partiellement uploadé"; 
                 break; 
             case UPLOAD_ERR_NO_FILE: 
-                $message = "Aucun fichier n'a été uploadé"; 
+                $message = "";
                 break; 
             case UPLOAD_ERR_NO_TMP_DIR: 
                 $message = "Dossier temporaire manquant"; 
@@ -63,16 +63,35 @@ function upload($index,$destination,$maxsize=FALSE,$extensions=FALSE)
      
      return "";
 }
+$edition = false;
+
+if(isset($_GET['produit']) && !empty($_GET['produit'])){
+    $produit = unserialize(base64_decode($_GET['produit']));
+    $edition = true;
+}else{
+    $produit = new Produit("", "", "", "", "", "", "", "");
+}
 
 if(isset($_POST) && !empty($_POST)){
-    if(isset($_FILES['image'])){
+    $id = null;
+    
+    if(isset($_POST['id']) && !empty($_POST['id'])){
+        $id = $_POST['id'];
+    }
+    
+    if(isset($_FILES['image']) && !empty($_FILES['image'])){
         $image = $_FILES['image'];
         $nom = "produit" . md5(uniqid(rand(), true));
         $erreurUpload = upload('image', "../../img/produit/".$nom, 5242880, ['png','gif','bmp','jpg','jpeg']);
-        $url = "'/img/produit/".$nom."'";
-    }else{
-        $url = "NULL";
+        if($id === null){
+            $url = "'/img/produit/".$nom."'";
+        }else if($id !== null ){
+            $url = "'" . $_POST['url'] . "'";
+        }else{
+            $url = "NULL";
+        }
     }
+    
     if($isBD){
         $nomProduit = $bd->escape_string($_POST['nom']);
         $descProduit = $bd->escape_string($_POST['desc']);
@@ -84,28 +103,51 @@ if(isset($_POST) && !empty($_POST)){
         }else{
             $legendeImage = 'NULL';
         }
-        $produit = new Produit(null, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
+        
+        $produit = new Produit($id, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
         
         if(!$erreurUpload){
-            $query = "INSERT INTO PRODUIT(NOM_PRODUIT, DESCRIPTION, CATEGORIE, PRIX, TAXE, IMAGE, ALT) VALUES "
-                        . "('".$produit->getNom()."', '".$produit->getDesc()."', ".$produit->getCategorieID().", ".$produit->getPrix().", ".$produit->getTaxe().", ".$produit->getUrlImage().", ".$produit->getAltImage().")";
+            if($id === null){
+                $query = "INSERT INTO PRODUIT(NOM_PRODUIT,"
+                        . " DESCRIPTION,"
+                        . " CATEGORIE,"
+                        . " PRIX,"
+                        . " TAXE,"
+                        . " IMAGE,"
+                        . " ALT)"
+                        . " VALUES ('".$produit->getNom()."',"
+                        . " '".$produit->getDesc()."',"
+                        . " ".$produit->getCategorieID().","
+                        . " ".$produit->getPrix().","
+                        . " ".$produit->getTaxe().","
+                        . " ".$produit->getUrlImage().","
+                        . " ".$produit->getAltImage().")";
+            }else{
+                $query = "UPDATE PRODUIT SET NOM_PRODUIT='".$produit->getNom()."', "
+                        . "DESCRIPTION='".$produit->getDesc()."', "
+                        . "CATEGORIE=".$produit->getCategorieID().", "
+                        . "PRIX=".$produit->getPrix().", "
+                        . "TAXE=".$produit->getTaxe().", "
+                        . "IMAGE=".$produit->getUrlImage().", "
+                        . "ALT=".$produit->getAltImage()." "
+                        . "WHERE ID_PRODUIT = ".$id;
+            }
             if(!$bd->query($query)){
-                $erreurInsert = "Erreur d'insertion : " . $query;
+                $erreurInsert = "Erreur d'insertion : " . $query . " : ". $bd->error;
             }else{
                 header('Location: ../../');
             }
         }
     }
-}else{
-    $produit = new Produit("", "", "", "", "", "", "", "");
 }
+
 ?>
 
 <?php include '../../navbar.php'; ?>
 
 <div class="container">
     <div class="row">
-        <h3>Ajout d'un produit</h3>
+        <h3><?php echo ($edition)? 'Edition' : 'Ajout'; ?> d'un produit</h3>
         <?php 
             if(!empty($erreurUpload)){ ?>
                 <div class="alert alert-danger" role="alert">Erreur d'upload : <?php echo $erreurUpload ?></div>
@@ -113,10 +155,12 @@ if(isset($_POST) && !empty($_POST)){
         ?>
         <?php 
             if(!empty($erreurInsert)){ ?>
-                <div class="alert alert-danger" role="alert">Erreur d'insertion : <?php echo $erreurInsert ?></div>
+                <div class="alert alert-danger" role="alert"><?php echo $erreurInsert ?></div>
             <?php }
         ?>
         <form class="horizontal-form" action="" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $produit->getId() ?>" />
+            <input type="hidden" name="url" value="<?php echo $produit->getUrlImage() ?>" />
             <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
             <div class="form-group">
                 <label for="inputNomProduit" >Nom du produit</label>
@@ -124,7 +168,7 @@ if(isset($_POST) && !empty($_POST)){
             </div>
             <div class="form-group">
                 <label for="inputDescProduit" >Description</label>
-                <textarea type="text" id="inputDescProduit" name="desc" class="form-control" value="<?php echo $produit->getDesc() ?>" required></textarea>
+                <textarea type="text" id="inputDescProduit" name="desc" class="form-control" required><?php echo $produit->getDesc() ?></textarea>
             </div>
             <div class="form-group">
                 <label for="inputCategorieProduit" >Catégorie</label>
@@ -155,9 +199,9 @@ if(isset($_POST) && !empty($_POST)){
             </div>
             <div class="form-group">
                 <label for="inputAltImageProduit">Légende image</label>
-                <input class="form-control" id="inputAltImageProduit" type="text" name="alt" maxlength="50" value="<?php echo $produit->getAltImage() ?>" />
+                <input class="form-control" id="inputAltImageProduit" type="text" name="alt" maxlength="50" value="<?php echo preg_replace('#(^\')|(\'$)#', '', $produit->getAltImage()) ?>" />
             </div>
-            <input style="width:100px" type="submit" value="Ajouter" class="btn btn-success pull-right" name="submit" />
+            <input style="width:120px" type="submit" value="<?php echo ($edition)? 'Sauvegarder' : 'Ajouter'; ?>" class="btn btn-success pull-right" name="submit" />
         </form>
     </div>
 </div>
