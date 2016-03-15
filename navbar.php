@@ -38,15 +38,15 @@ if($isBD){
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;Catégories <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php foreach($categories as $categorie){ ?>
-                        <li><a href="search.php?categorie=<?php echo $categorie->getId() ?>"><?php echo $categorie->getNom() ?></a></li>
+                        <li><a href="<?php echo $documentRoot; ?>/admin/produit/rechercheCategorie.php?categorie=<?php echo $categorie->getId() ?>"><?php echo $categorie->getNom() ?></a></li>
                         <?php } ?>
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left" action="search.php" method="GET">
+            <form class="navbar-form navbar-left" action="<?php echo $documentRoot ?>/admin/produit/recherche.php" method="GET">
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" placeholder="Nom du produit" class="form-control">
+                        <input type="text" placeholder="Nom du produit" class="form-control" name="requete">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
                         </span>
