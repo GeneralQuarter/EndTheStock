@@ -55,9 +55,13 @@ if($isBD){
             </form>
             <?php if (!$isUserConnected) { ?>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Connexion <span class="caret"></span></a>
+                <?php $erreur = (string) filter_input(INPUT_GET, 'erreurConnexion'); $erreur = ($erreur === 'true')? true : false; ?>
+                <li class="dropdown <?php echo ($erreur)? 'open' : ''; ?>">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="<?php echo ($erreur)? 'true' : 'false'; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Connexion <span class="caret"></span></a>
                     <ul class="dropdown-menu" style="min-width: 300px; padding: 10px;">
+                        <?php if($erreur){ ?>
+                            <div class="alert alert-danger" role="alert">Erreur de connexion</div>
+                        <?php } ?>
                         <form action="<?php echo $documentRoot ?>/utilisateur/connexion.php" method="POST">
                             <div class="form-group">
                                 <input type="text" placeholder="Pseudo" name="pseudo" class="form-control">
@@ -90,7 +94,7 @@ if($isBD){
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="myModalLabel">Inscription</h3>
             </div>
-            <form class="horizontal-form" action="<?php echo $documentRoot ?>/utilisateur/enregistrement.php" method="POST">
+            <form class="horizontal-form" action="<?php echo $documentRoot ?>/utilisateur/enregistrement.php" method="POST" onsubmit="return checkForm(this)">
                 <div class="modal-body" style="padding-bottom:0px">
                     <h4>Informations générales</h4>
                     <div class="form-group">
@@ -113,10 +117,10 @@ if($isBD){
                         <input class="form-control" type="text" placeholder="Pseudo" name="pseudo" maxLength="50" required/>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" placeholder="Mot de passe" name="mdp" maxLength="50" required/>
+                        <input class="form-control" id="mdp1" type="password" placeholder="Mot de passe" name="mdp" maxLength="50" minlength="3" required/>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" type="password" placeholder="Retapez mot de passe" name="mdp2" maxLength="50" required/>
+                    <div class="form-group" id="mdp2group">
+                        <input data-toggle="popover" data-trigger="focus" data-content="Vos mot de passes ne correspondent pas" placement="bottom" class="form-control" id="mdp2" type="password" placeholder="Retapez mot de passe" name="mdp2" maxLength="50" minlength="3" required/>
                     </div>
                 </div>
                 <div class="modal-footer">

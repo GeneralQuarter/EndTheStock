@@ -23,7 +23,7 @@ if (isset($_POST) && !empty($_POST)) {
             $_SESSION['commande']= serialize($commande);
             header('Location: ../');
         }else{
-            echo 'Erreur de connexion';
+            header('Location: ../index.php?erreurConnexion=true');
         }
     }
 }

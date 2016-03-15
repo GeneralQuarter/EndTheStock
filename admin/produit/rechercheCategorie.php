@@ -49,7 +49,7 @@
             <?php } ?>
             </table>
         <?php }else{ ?>
-        <h2 class="titreRubrique">Désolé Billy, aucun produit ne correspond à ta recherche !</h2>
+        <h2 class="titreRubrique">Désolé <?php echo ($isUserConnected)? $user->getPrenom() : 'Billy'; ?>, aucun produit ne correspond à ta recherche !</h2>
         <?php } ?>
     </div>
 </div>

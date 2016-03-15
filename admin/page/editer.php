@@ -10,7 +10,7 @@ if(!$isUserAdmin){
 
 if(filter_input(INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS) != false){
     $page = (string) filter_input(INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
-    $editeur = (string) filter_input(INPUT_POST, 'editeur', FILTER_SANITIZE_SPECIAL_CHARS);
+    $editeur = (string) filter_input(INPUT_POST, 'editeur');
     file_put_contents($page.'.html', $editeur);
     header('Location: ../../index.php');
 }else{

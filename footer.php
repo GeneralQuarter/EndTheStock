@@ -10,5 +10,28 @@
 </body>
 </html>
 
+<script>
+    $('#mdp2').on('input change', function (){
+        if($('#mdp2').val() !== $('#mdp1').val()){
+            $('#mdp2group').attr('class', 'form-group has-error');
+        }else{
+            $('#mdp2group').attr('class', 'form-group has-success');
+        }
+        $('#mdp2').popover('hide');
+    });
+    
+    $('#mdp2').on('focus', function (e){
+        $('#mdp2').popover('hide');
+    });
+    
+    function checkForm(form){
+        if(form.mdp2.value !== form.mdp1.value){
+            $('#mdp2').popover('show');
+            return false;
+        }
+        return true;
+    }
+</script>
+
 
 
