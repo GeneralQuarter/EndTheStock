@@ -57,7 +57,8 @@ if($isBD){
             <ul class="nav navbar-nav navbar-right">
                 <?php $erreur = (string) filter_input(INPUT_GET, 'erreurConnexion'); $erreur = ($erreur === 'true')? true : false; ?>
                 <li class="dropdown <?php echo ($erreur)? 'open' : ''; ?>">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="<?php echo ($erreur)? 'true' : 'false'; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Connexion <span class="caret"></span></a>
+                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria_haspopup="true" aria-expanded="<?php echo ($erreur)? 'true' : 'false'; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?php if(filter_input(INPUT_COOKIE, 'prenom')){ ?>Connecte toi <?php echo filter_input(INPUT_COOKIE, 'prenom');?> ! <?php }else{ ?> Connexion <?php } ?><span class="caret"></span></a>
                     <ul class="dropdown-menu" style="min-width: 300px; padding: 10px;">
                         <?php if($erreur){ ?>
                             <div class="alert alert-danger" role="alert">Erreur de connexion</div>

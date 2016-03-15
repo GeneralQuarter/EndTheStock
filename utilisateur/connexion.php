@@ -21,6 +21,12 @@ if (isset($_POST) && !empty($_POST)) {
             
             $commande = new Commande();
             $_SESSION['commande']= serialize($commande);
+            
+            
+            $expire = 365*24*3600;
+            setcookie('prenom',$user->getPrenom(),time()+$expire, $documentRoot.'/');
+            
+            
             header('Location: ../');
         }else{
             header('Location: ../index.php?erreurConnexion=true');

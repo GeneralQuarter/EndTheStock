@@ -41,19 +41,20 @@ if($isCommande){
         <h3 class="pull-right" >Prix total avec taxe : <?php echo $commande->getPrixAvecTaxeString() ?> $ CAD</h3>
     </div>
     <?php 
-    if($user->getAdresse_id()!== null) {?>
+    if($user->getAdresse_id()!== null && count($commande->getLignes())>0) {?>
         <div class="row"><a class="btn btn-success pull-right" href="enregistrerCommande.php" role="button">Passer la commande</a></div>
     <?php }else{ ?>
         <div class="row">
             <a class="btn btn-success pull-right" href="#" disabled="disabled" role="button">Passer la commande</a>
         </div>
-        
+        <?php if($user->getAdresse_id()==null){ ?>
         <div class="row" style="margin-top: 30px;">
             <button role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Ajouter une adresse</button>'
             <p class="pull-right" style="margin: 10px;">Ajoutez une adresse pour pouvoir commander</p>
         </div>
-        
-    <?php } ?>
+        <?php } ?>
+    <?php 
+        } ?>
     <div class="row"><a class="btn btn-danger pull-left" href="viderPanier.php" role="button">Vider le panier</a></div>
     
 </div>
