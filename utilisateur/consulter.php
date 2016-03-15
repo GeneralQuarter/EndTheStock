@@ -27,15 +27,22 @@ if ($isBD) {
                 <th>Role</th>
                 <th>Courriel</th>
                 <th>Téléphone</th>
+                <th>Commandes passées</th>
                 <th></th>
             </tr>
-            <?php if($res !== false) while ($row = $res->fetch_assoc()) { ?>
+            <?php if($res !== false) while ($row = $res->fetch_assoc()) { 
+                if ($isBD) {
+                    $nbrBd = $bd->query('SELECT COUNT(ID_COMMANDE) AS nbr FROM COMMANDE WHERE ID_CLIENT='.$row['ID_UTILISATEUR']);
+                    $nbrCommande = $nbrBd->fetch_assoc();
+                }
+                ?>
                 <tr style="height: 50px">
                     <td class="vert-align"><?php echo $row['NOM_CLIENT']; ?></td>
                     <td class="vert-align"><?php echo $row['PRENOM_CLIENT']; ?></td>
                     <td class="vert-align"><?php echo $row['ROLE']; ?></td>
                     <td class="vert-align"><?php echo $row['COURRIEL']; ?></td>
                     <td class="vert-align"><?php echo $row['TELEPHONE']; ?></td>
+                    <td class="vert-align"><?php echo $nbrCommande['nbr'];?></td>
     <?php if ($row['ID_UTILISATEUR'] !== $user->getId()) { ?>
                         <td class="vert-align"><a role="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteUser" data-nom="<?php echo $row['PRENOM_CLIENT']. ' '.$row['NOM_CLIENT'] ?>" data-id="<?php echo $row['ID_UTILISATEUR']?>"><span class="glyphicon glyphicon-trash"></span></a></td>
                     <?php }else{ ?>

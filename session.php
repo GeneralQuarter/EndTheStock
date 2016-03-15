@@ -7,6 +7,7 @@ include 'admin/categorie/Categorie.php';
 include 'admin/produit/Produit.php';
 include 'utilisateur/panier/LigneCommande.php';
 include 'utilisateur/panier/Commande.php';
+include 'utilisateur/panier/CommandeEffectuee.php';
 include 'constantes.php';
 
 if(isset($_SESSION['user'])){
