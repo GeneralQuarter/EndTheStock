@@ -6,7 +6,7 @@ if(!$isUserConnected) {
 }
 
 if($isCommande){
-    $_SESSION['commande']=  serialize(new Commande());
+    $_SESSION['commande'] = serialize(new Commande());
     header('Location: consulter.php');
 }else{
     header('Location: ../../');

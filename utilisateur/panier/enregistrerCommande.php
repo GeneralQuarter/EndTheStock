@@ -13,7 +13,7 @@ if ($isCommande) {
     } 
 
     foreach ($commande->getLignes() as $ligne){ 
-            $ligne=  unserialize($ligne);
+            $ligne = unserialize($ligne);
             $produit = unserialize($ligne->getProduit()); 
             
             $query = "INSERT INTO LIGNE_COMMANDE(ID_COMMANDE, ID_PRODUIT, QUANTITEE) VALUES (LAST_INSERT_ID()," . $produit->getId() . ", " . $ligne->getQuantitee() . ")";
@@ -24,7 +24,7 @@ if ($isCommande) {
             }
          }
          
-         $_SESSION['commande']=  serialize(new Commande());
+         $_SESSION['commande'] = serialize(new Commande());
 ?>
 
 <div class="container">

@@ -8,12 +8,12 @@ if(!$isUserAdmin){
     header('Location: ../../403.php?page=page/editer.php');
 }
 
-if(isset($_POST) && !empty($_POST)){
-    $page=$_POST['page'];
-    file_put_contents($page.'.html', $_POST['editeur']);
+if(filter_input(INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS) != false){
+    $page = (string) filter_input(INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
+    $editeur = (string) filter_input(INPUT_POST, 'editeur', FILTER_SANITIZE_SPECIAL_CHARS);
+    file_put_contents($page.'.html', $editeur);
     header('Location: ../../index.php');
 }else{
+    //TODO Message erreur ?
     header('Location: ../../index.php');
 }
-
-?>

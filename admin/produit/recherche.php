@@ -4,7 +4,7 @@
 <?php 
     $r = false;
     if ($isBD) {
-        $res = $bd->query('SELECT * FROM PRODUIT WHERE NOM_PRODUIT LIKE \'%'.$_GET['requete'].'%\'');
+        $res = $bd->query('SELECT * FROM PRODUIT WHERE NOM_PRODUIT LIKE \'%'.$bd->escape_string(filter_input(INPUT_GET, 'requete')).'%\'');
     }
 
     $produits = [];

@@ -10,13 +10,18 @@ if(!$isUserAdmin){
     header('Location: ../../403.php?page=editerProduit.php');
 }
 
-if(isset($_GET['id']) && !empty($_GET['id'])){
-    if($isBD){
-        if(!$bd->query("DELETE FROM PRODUIT WHERE ID_PRODUIT=".$_GET['id'])){
-            echo "Erreur de suppression";
-        }else{
-            header('Location: consulter.php');
+if(filter_input(INPUT_GET, 'id') !== false){
+    $id = (int) filter_input(INPUT_GET, 'id');
+    if($id > 0){
+        if($isBD){
+            if(!$bd->query("DELETE FROM PRODUIT WHERE ID_PRODUIT=".$_GET['id'])){
+                echo "Erreur de suppression";
+            }else{
+                header('Location: consulter.php');
+            }
         }
+    }else{
+        header('Location: ../../');
     }
 }
 

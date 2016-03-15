@@ -10,10 +10,12 @@ if(!$isUserAdmin){
     header('Location: ../../accesRestraint.php?page=categorie/editer.php');
 }
 
-if(isset($_GET['id'])){
-    if($isBD){
-        if(!$bd->query("DELETE FROM CATEGORIE WHERE ID_CATEGORIE=".$_GET[id])){
-            echo 'Erreur de suppression de l\'utilisateur ' . $_GET['id'];
+if(filter_input(INPUT_GET, 'id') !== false){
+    $id = (int) filter_input(INPUT_GET, 'id');
+    if($isBD && $id > 0){
+        if(!$bd->query("DELETE FROM CATEGORIE WHERE ID_CATEGORIE=".$id)){
+            //TODO Message d'erreur ?
+            echo 'Erreur de suppression de l\'utilisateur ' . $id;
         }else{
             header('Location: consulter.php');
         }

@@ -63,10 +63,11 @@ function upload($index,$destination,$maxsize=FALSE,$extensions=FALSE)
      
      return "";
 }
+
 $edition = false;
 
-if(isset($_GET['produit']) && !empty($_GET['produit'])){
-    $produit = unserialize(base64_decode($_GET['produit']));
+if(filter_input(INPUT_GET, 'produit', FILTER_SANITIZE_SPECIAL_CHARS)){
+    $produit = unserialize(base64_decode(filter_input(INPUT_GET, 'produit', FILTER_SANITIZE_SPECIAL_CHARS)));
     $edition = true;
 }else{
     $produit = new Produit("", "", "", "", "", "", "", "");
@@ -75,8 +76,11 @@ if(isset($_GET['produit']) && !empty($_GET['produit'])){
 if(isset($_POST) && !empty($_POST)){
     $id = null;
     
-    if(isset($_POST['id']) && !empty($_POST['id'])){
-        $id = $_POST['id'];
+    if(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS) !== false){
+        $id = (int) filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        if($id === 0){
+            $id = null;
+        }
     }
     
     if(isset($_FILES['image']) && !empty($_FILES['image'])){
@@ -86,20 +90,20 @@ if(isset($_POST) && !empty($_POST)){
         if($id === null){
             $url = "'/img/produit/".$nom."'";
         }else if($id !== null ){
-            $url = "'" . $_POST['url'] . "'";
+            $url = "'" . (string) filter_input(INPUT_POST, 'url', FILTER_SANITIZE_SPECIAL_CHARS) . "'";
         }else{
             $url = "NULL";
         }
     }
     
     if($isBD){
-        $nomProduit = $bd->escape_string($_POST['nom']);
-        $descProduit = $bd->escape_string($_POST['desc']);
-        $categorieID = $_POST['categorie'];
-        $prix = $_POST['prix'];
-        $taxe = $_POST['taxe'];
-        if(isset($_POST['alt'])){
-            $legendeImage = "'".$bd->escape_string($_POST['alt'])."'";
+        $nomProduit = $bd->escape_string((string) filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS));
+        $descProduit = $bd->escape_string((string) filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_SPECIAL_CHARS));
+        $categorieID = (int) filter_input(INPUT_POST, 'categorie');
+        $prix = (float) filter_input(INPUT_POST, 'prix');
+        $taxe = (float) filter_input(INPUT_POST, 'taxe');
+        if(filter_input(INPUT_POST, 'alt', FILTER_SANITIZE_SPECIAL_CHARS) !== false){
+            $legendeImage = "'".$bd->escape_string((string) filter_input(INPUT_POST, 'alt', FILTER_SANITIZE_SPECIAL_CHARS))."'";
         }else{
             $legendeImage = 'NULL';
         }
@@ -135,7 +139,8 @@ if(isset($_POST) && !empty($_POST)){
             if(!$bd->query($query)){
                 $erreurInsert = "Erreur d'insertion : " . $query . " : ". $bd->error;
             }else{
-                header('Location: ../../');
+                $erreurInsert = "Query qui passe ? : " . $query;
+                //header('Location: ../../');
             }
         }
     }

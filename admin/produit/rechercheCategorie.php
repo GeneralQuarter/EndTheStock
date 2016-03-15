@@ -4,10 +4,13 @@
 <?php 
     $r = false;
     if ($isBD) {
-        $res = $bd->query('SELECT * FROM PRODUIT WHERE CATEGORIE ='.$_GET['categorie']);
-        foreach($categories as $categorie){
-            if($categorie->getId()==$_GET['categorie']){
-                $c = $categorie->getNom();
+        $id = (int) filter_input(INPUT_GET, 'categorie');
+        if($id > 0){
+            $res = $bd->query('SELECT * FROM PRODUIT WHERE CATEGORIE ='.$id);
+            foreach($categories as $categorie){
+                if((int) $categorie->getId() === $id){
+                    $c = $categorie->getNom();
+                }
             }
         }
     }

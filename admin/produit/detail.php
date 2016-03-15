@@ -1,10 +1,16 @@
 <?php include '../../header.php' ?>
-<?php include '../../navbar.php' ?>
+
 
 <?php 
     if ($isBD) {
-        if(isset($_GET['id']))
-            $res = $bd->query('SELECT * FROM PRODUIT WHERE ID_PRODUIT='.$_GET['id']);
+        if(filter_input(INPUT_GET, 'id') !== false){
+            $id = (int) filter_input(INPUT_GET, 'id');
+            if($id > 0){
+                $res = $bd->query('SELECT * FROM PRODUIT WHERE ID_PRODUIT='.$id);
+            }else{
+               header('Location: ../../');
+            }
+        }
     }
 
     if($res !== false) while($row = $res->fetch_assoc()){
@@ -13,6 +19,9 @@
                 $row['IMAGE'], $row['ALT']);
     }
 ?>    
+
+<?php include '../../navbar.php' ?>
+
     <div class="container" style="padding-top: 2%;" >
     <div class="row">
         

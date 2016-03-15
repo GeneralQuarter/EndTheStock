@@ -7,13 +7,16 @@ if(!$isUserAdmin){
     header('Location: ../accesRestraint.php?page=utilisateur/retirer.php');
 }
 
-if(isset($_GET['id'])){
+$id = filter_input(INPUT_GET, 'id');
+if($id > 0){
     if($isBD){
-        if(!$bd->query("DELETE FROM UTILISATEUR WHERE ID_UTILISATEUR=".$_GET[id])){
-            echo 'Erreur de suppression de l\'utilisateur ' . $_GET['id'];
+        if(!$bd->query("DELETE FROM UTILISATEUR WHERE ID_UTILISATEUR=".$id)){
+            echo 'Erreur de suppression de l\'utilisateur ' . $id;
         }else{
-            header('Location: ../consulter.php');
+            header('Location: consulter.php');
         }
     }
+}else{
+    header('../');
 }
 
