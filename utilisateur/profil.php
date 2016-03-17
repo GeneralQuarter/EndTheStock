@@ -1,7 +1,6 @@
 <?php
 
 include '../header.php';
-include 'adresse/Adresse.php';
 
 if($isUserConnected){
     //Display profil
@@ -36,18 +35,19 @@ if($isUserConnected){
             echo '<p>'.$adresse->getDepartement() . ' ' . $adresse->getVille().'</p>';
             echo '<p>'.$adresse->getRegion().'</p>';
             echo '<p>'.$adresse->getPays().'</p>';
+            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Modifier votre adresse</button>';
         }else{
-            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Ajouter une adresse</button>';
+            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Ajouter votre adresse</button>';
         }
         ?>
     </div>
     <br>
     <h2 class="titreRubrique">Historique des commandes</h2>
     <table class="table table-hover">
-            <tr>
+            <thead>
                 <th>Date de la commande</th>
                 <th>Prix hors taxe</th>
-            </tr>
+            </thead>
             <?php
             foreach ($commandes as $commande){
                 $prixHT = 0;

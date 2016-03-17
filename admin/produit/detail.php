@@ -16,7 +16,7 @@
     if($res !== false) while($row = $res->fetch_assoc()){
         $produit = new Produit($row['ID_PRODUIT'], $row['NOM_PRODUIT'], $row['DESCRIPTION'], 
                 $row['CATEGORIE'], $row['PRIX'], $row['TAXE'], 
-                $row['IMAGE'], $row['ALT']);
+                $row['IMAGE'], $row['ALT'] , $row['VISIBLE']);
     }
 ?>    
 

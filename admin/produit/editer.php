@@ -70,7 +70,7 @@ if(filter_input(INPUT_GET, 'produit', FILTER_SANITIZE_SPECIAL_CHARS)){
     $produit = unserialize(base64_decode(filter_input(INPUT_GET, 'produit', FILTER_SANITIZE_SPECIAL_CHARS)));
     $edition = true;
 }else{
-    $produit = new Produit("", "", "", "", "", "", "", "");
+    $produit = new Produit("", "", "", "", "", "", "", "", "");
 }
 
 if(isset($_POST) && !empty($_POST)){
@@ -97,18 +97,19 @@ if(isset($_POST) && !empty($_POST)){
     }
     
     if($isBD){
-        $nomProduit = $bd->escape_string((string) filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS));
-        $descProduit = $bd->escape_string((string) filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_SPECIAL_CHARS));
+        $nomProduit = $bd->real_escape_string((string) filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS));
+        $descProduit = $bd->real_escape_string((string) filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_SPECIAL_CHARS));
         $categorieID = (int) filter_input(INPUT_POST, 'categorie');
         $prix = (float) filter_input(INPUT_POST, 'prix');
         $taxe = (float) filter_input(INPUT_POST, 'taxe');
+        $visible = 'V';
         if(filter_input(INPUT_POST, 'alt', FILTER_SANITIZE_SPECIAL_CHARS) !== false){
-            $legendeImage = "'".$bd->escape_string((string) filter_input(INPUT_POST, 'alt', FILTER_SANITIZE_SPECIAL_CHARS))."'";
+            $legendeImage = "'".$bd->real_escape_string((string) filter_input(INPUT_POST, 'alt', FILTER_SANITIZE_SPECIAL_CHARS))."'";
         }else{
             $legendeImage = 'NULL';
         }
         
-        $produit = new Produit($id, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage);
+        $produit = new Produit($id, $nomProduit, $descProduit, $categorieID, $prix, $taxe, $url, $legendeImage, $visible);
         
         if(!$erreurUpload){
             if($id === null){
@@ -118,14 +119,16 @@ if(isset($_POST) && !empty($_POST)){
                         . " PRIX,"
                         . " TAXE,"
                         . " IMAGE,"
-                        . " ALT)"
+                        . " ALT,"
+                        . " VISIBLE )"
                         . " VALUES ('".$produit->getNom()."',"
                         . " '".$produit->getDesc()."',"
                         . " ".$produit->getCategorieID().","
                         . " ".$produit->getPrix().","
                         . " ".$produit->getTaxe().","
                         . " ".$produit->getUrlImage().","
-                        . " ".$produit->getAltImage().")";
+                        . " ".$produit->getAltImage().","
+                        . " 'V')";
             }else{
                 $query = "UPDATE PRODUIT SET NOM_PRODUIT='".$produit->getNom()."', "
                         . "DESCRIPTION='".$produit->getDesc()."', "
@@ -139,8 +142,8 @@ if(isset($_POST) && !empty($_POST)){
             if(!$bd->query($query)){
                 $erreurInsert = "Erreur d'insertion : " . $query . " : ". $bd->error;
             }else{
-                $erreurInsert = "Query qui passe ? : " . $query;
-                //header('Location: ../../');
+                //$erreurInsert = "Query qui passe ? : " . $query;
+                header('Location: ../../');
             }
         }
     }

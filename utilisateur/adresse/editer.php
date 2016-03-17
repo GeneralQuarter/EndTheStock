@@ -1,7 +1,6 @@
 <?php
     include '../../header.php';
-    include 'Adresse.php';
-
+    
     if(!$isUserConnected) {
         header('Location: ../../index.php');
     }

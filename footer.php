@@ -1,7 +1,10 @@
 <div class="container">
     <hr>
     <footer>
-        <p>&copy; 2015 Company, Inc.</p>
+        &copy; 2015 Company, Inc.
+        <?php if($isUserConnected){ ?>
+        <a class="btn btn-default pull-right" href="<?php echo $documentRoot; ?>/utilisateur/contact.php" role="button">Nous contacter</a>
+        <?php } ?>
     </footer>
 </div>
 

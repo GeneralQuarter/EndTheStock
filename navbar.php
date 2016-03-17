@@ -4,7 +4,7 @@ if($isBD){
     $res = $bd->query("SELECT * FROM CATEGORIE");
     
     if($res !== false) while($row = $res->fetch_assoc()){
-        $categories[] = new Categorie($row['ID_CATEGORIE'], $row['NOM_CATEGORIE']);
+        $categories[$row['ID_CATEGORIE']] = new Categorie($row['ID_CATEGORIE'], $row['NOM_CATEGORIE']);
     }
 } ?>
 

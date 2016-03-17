@@ -20,8 +20,9 @@ class Produit {
     private $taxe;
     private $urlImage;
     private $altImage;
+    private $visible;
     
-    function __construct($id, $nom, $desc, $categorieID, $prix, $taxe, $urlImage, $altImage) {
+    function __construct($id, $nom, $desc, $categorieID, $prix, $taxe, $urlImage, $altImage, $visible) {
         $this->id = $id;
         $this->nom = $nom;
         $this->desc = $desc;
@@ -30,6 +31,7 @@ class Produit {
         $this->taxe = $taxe;
         $this->urlImage = $urlImage;
         $this->altImage = $altImage;
+        $this->visible = $visible;
     }
     
     function getId() {
@@ -62,6 +64,10 @@ class Produit {
 
     function getAltImage() {
         return $this->altImage;
+    }
+    
+    function getVisible() {
+        return $this->visible;
     }
 
     function setId($id) {
@@ -96,5 +102,8 @@ class Produit {
         $this->altImage = $altImage;
     }
 
+    function setVisible($visible) {
+        $this->visible = $visible;
+    }
 
 }

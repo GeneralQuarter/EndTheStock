@@ -3,14 +3,14 @@
 
 <?php 
     if ($isBD) {
-        $res = $bd->query('SELECT * FROM PRODUIT');
+        $res = $bd->query('SELECT * FROM PRODUIT WHERE VISIBLE = \'V\'');
     }
 
     $produits = [];
     if($res !== false) while($row = $res->fetch_assoc()){
         $produits[] = new Produit($row['ID_PRODUIT'], $row['NOM_PRODUIT'], $row['DESCRIPTION'], 
                 $row['CATEGORIE'], $row['PRIX'], $row['TAXE'], 
-                $row['IMAGE'], $row['ALT']);
+                $row['IMAGE'], $row['ALT'], $row['VISIBLE']);
     }
 ?>
 
@@ -26,14 +26,15 @@
 
 <div class="container">
     <div class="row">
-        <?php foreach($produits as $produit){ ?>
+        <?php foreach($produits as $produit){ 
+            if($produit->getVisible() !== 'I'){?>
             <div class="col-md-4">
                 <img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage(); ?>" style="width:auto;height:280px;">
                 <h2 class="titreBloc"><?php echo $produit->getNom(); ?></h2>
                 <p><?php echo $produit->getPrix(); ?> $ CAD</p>
                 <p><a class="btn btn-default" href="admin/produit/detail.php?id=<?php echo $produit->getId(); ?>" role="button">Détails</a></p>
             </div>
-        <?php } ?>
+            <?php }} ?>
     </div>
 </div>
 

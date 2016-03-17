@@ -13,16 +13,16 @@ if($isCommande){
     ?>
 <div class="container">
     <div class="row">
-        <h2>Panier</h2>
+        <h2 class="titreRubrique">Panier</h2>
         <table class="table table-hover">
-            <tr>
+            <thead>
                 <th></th>
                 <th>Nom du produit</th>
                 <th style="text-align: center;">Quantitée</th>
                 <th>Prix hors taxe</th>
                 <th>Prix avec taxe</th>
                 <th></th>
-            </tr>
+            </thead>
             <?php
             foreach ($commande->getLignes() as $ligne){ 
             $ligne=  unserialize($ligne);
@@ -41,8 +41,25 @@ if($isCommande){
         <h3 class="pull-right" >Prix total avec taxe : <?php echo $commande->getPrixAvecTaxeString() ?> $ CAD</h3>
     </div>
     <?php 
-    if($user->getAdresse_id()!== null && count($commande->getLignes())>0) {?>
-        <div class="row"><a class="btn btn-success pull-right" href="enregistrerCommande.php" role="button">Passer la commande</a></div>
+    if($isBD){
+        $res = $bd->query('SELECT * FROM ADRESSE WHERE ID_ADRESSE = ' . $user->getAdresse_id());
+        if($res !== false) while($row = $res->fetch_assoc()){
+            $adresse = new Adresse($row['ID_ADRESSE'], $row['NUMERO_CIVIQUE'] , $row['RUE'],
+                    $row['VILLE'], $row['DEPARTEMENT'], $row['REGION'] , $row['PAYS']);
+            $adresseValide = true;
+            }else{
+                $adresseValide = false;
+        }
+    }
+    if($user->getAdresse_id()!== null && count($commande->getLignes())>0) {
+        if($adresseValide){
+            echo '<p>'.$adresse->getNumero_civique() . ' ' . $adresse->getRue().'</p>';
+            echo '<p>'.$adresse->getDepartement() . ' ' . $adresse->getVille().'</p>';
+            echo '<p>'.$adresse->getRegion().'</p>';
+            echo '<p>'.$adresse->getPays().'</p>';
+            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Modifier votre adresse</button>';
+        }?>
+    <div class="row"><a class="btn btn-success pull-right" href="enregistrerCommande.php" role="button">Passer la commande</a></div>
     <?php }else{ ?>
         <div class="row">
             <a class="btn btn-success pull-right" href="#" disabled="disabled" role="button">Passer la commande</a>
