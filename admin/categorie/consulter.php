@@ -28,7 +28,6 @@ include '../../navbar.php';
                 <td class="vert-align"><?php echo $categorie->getNom() ?></td>
                 <td class="vert-align">
                 <?php if($categorie->getId() !== "1"){ ?>
-                <a role="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteCategory" data-nom="<?php echo $categorie->getNom() ?>" data-id="<?php echo $categorie->getId() ?>"><span class="glyphicon glyphicon-trash"></span></a>
                 <a role="button" style="margin-right: 10px;" class="btn btn-default pull-right" data-toggle="modal" data-target="#editCategory" data-nom="<?php echo $categorie->getNom() ?>" data-id="<?php echo $categorie->getId() ?>"><span class="glyphicon glyphicon-pencil"></span></a>
                 <?php } ?>
                 </td>
@@ -38,26 +37,6 @@ include '../../navbar.php';
         <?php }else{ ?>
         <p>Aucune catégorie</p>
         <?php } ?>
-    </div>
-</div>
-
-<!-- DELETE MODAL -->
-<div class="modal fade" id="deleteCategory" tabindex="-1" role="dialog" aria-labelledby="Retirer Categorie">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Retirer <span class="nomCategorie"></span></h3>
-            </div>
-            <div class="modal-body">
-                <p>Voulez-vous vraiment retirer <span class="nomCategorie"></span> ? <br>
-                    Cette action est irréversible !
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <a type="button" class="btn btn-danger"  id="comfirmButton" href="retirer.php">Confirmer</a>
-            </div>
-        </div>
     </div>
 </div>
 

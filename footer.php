@@ -1,7 +1,7 @@
 <div class="container">
     <hr>
     <footer>
-        &copy; 2015 Company, Inc.
+        &copy; Hiver 2016, Valentin Pivet, Quentin Gangler, GEGEP Lévis-Lauzon
         <?php if($isUserConnected){ ?>
         <a class="btn btn-default pull-right" href="<?php echo $documentRoot; ?>/utilisateur/contact.php" role="button">Nous contacter</a>
         <?php } ?>

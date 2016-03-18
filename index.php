@@ -2,8 +2,20 @@
 <?php include 'navbar.php' ?>
 
 <?php 
+    $total = 0;
     if ($isBD) {
-        $res = $bd->query('SELECT * FROM PRODUIT WHERE VISIBLE = \'V\'');
+        $res = $bd->query('SELECT COUNT(*) AS total FROM PRODUIT WHERE VISIBLE = \'V\'');
+        if($res !== false) $total = $res->fetch_assoc()['total'];
+        
+        $nombreDePages=ceil($total/$produitsParPage);
+    
+        $page = (int) filter_input(INPUT_GET, 'page');
+        $page = ($page <= 0)? 1 : $page;
+        $page = ($page > $nombreDePages)? $nombreDePages : $page;
+
+        $premiereEntree = ($page-1)*$nombreDePages;
+        
+        $res = $bd->query('SELECT * FROM PRODUIT WHERE VISIBLE = \'V\' ORDER BY ID_PRODUIT DESC LIMIT '.$premiereEntree.', '.$produitsParPage.'');
     }
 
     $produits = [];
@@ -25,6 +37,19 @@
 </div>
 
 <div class="container">
+    <?php if($nombreDePages > 1 ){ ?>
+    <div class="row">
+        <nav class="pull-right">
+            <ul class="pagination">
+              <li <?php if($page === 1){ ?> class="disabled"<?php } ?>><a href="index.php?page=<?php echo ($page-1 > 0)? ($page-1) : 1; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+              <?php for($i = 0; $i < $nombreDePages; $i++){ ?>
+              <li <?php if(($i+1) === $page){ ?>class="active" <?php } ?>><a href="index.php?page=<?php echo ($i+1) ?>"><?php echo ($i+1); ?> </a></li>
+              <?php } ?>
+              <li<?php if($page == $nombreDePages){ ?> class="disabled" <?php } ?>><a href="index.php?page=<?php echo ($page+1 <= $nombreDePages)? ($page+1) : $nombreDePages; ?>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        </nav>
+    </div><
+    <?php } ?>
     <div class="row">
         <?php foreach($produits as $produit){ 
             if($produit->getVisible() !== 'I'){?>
@@ -36,6 +61,19 @@
             </div>
             <?php }} ?>
     </div>
+    <?php if($nombreDePages > 1 ){ ?>
+    <div class="row">
+        <nav class="pull-right">
+            <ul class="pagination">
+              <li <?php if($page === 1){ ?> class="disabled"<?php } ?>><a href="index.php?page=<?php echo ($page-1 > 0)? ($page-1) : 1; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+              <?php for($i = 0; $i < $nombreDePages; $i++){ ?>
+              <li <?php if(($i+1) === $page){ ?>class="active" <?php } ?>><a href="index.php?page=<?php echo ($i+1) ?>"><?php echo ($i+1); ?> </a></li>
+              <?php } ?>
+              <li<?php if($page == $nombreDePages){ ?> class="disabled" <?php } ?>><a href="index.php?page=<?php echo ($page+1 <= $nombreDePages)? ($page+1) : $nombreDePages; ?>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    <?php } ?>
 </div>
 
 <!-- EDIT MODAL -->
