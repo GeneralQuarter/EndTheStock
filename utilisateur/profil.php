@@ -159,11 +159,11 @@ if($isUserConnected){
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="myModalLabel">Changement de mot de passe</h3>
             </div>
-            <form class="horizontal-form" action="<?php echo $documentRoot ?>/utilisateur/enregistrement.php" method="POST" onsubmit="return checkForm(this)">
+            <form class="horizontal-form" action="<?php echo $documentRoot ?>/utilisateur/modificationMdp.php" method="POST" onsubmit="return checkForm(this)">
                 <hr>
                 <div class="modal-body" style="padding-top:0">
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Votre ancien mot de passe" name="ancienmdp" maxLength="50" required/>
+                        <input class="form-control" type="password" placeholder="Votre ancien mot de passe" name="ancienmdp" maxLength="50" required/>
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="mdp1" type="password" placeholder="Nouveau mot de passe" name="mdp" maxLength="50" minlength="3" required/>
@@ -174,7 +174,7 @@ if($isUserConnected){
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <input type="submit" value="Inscription" class="btn btn-primary" />
+                    <input type="submit" value="Valider" class="btn btn-primary" />
                 </div>
             </form>
         </div>
