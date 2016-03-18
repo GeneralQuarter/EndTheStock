@@ -130,16 +130,44 @@ if(isset($_POST) && !empty($_POST)){
                         . " ".$produit->getAltImage().","
                         . " 'V')";
             }else{
-                $query = "UPDATE PRODUIT SET NOM_PRODUIT='".$produit->getNom()."', "
-                        . "DESCRIPTION='".$produit->getDesc()."', "
-                        . "CATEGORIE=".$produit->getCategorieID().", "
-                        . "PRIX=".$produit->getPrix().", "
-                        . "TAXE=".$produit->getTaxe().", "
-                        . "IMAGE=".$produit->getUrlImage().", "
-                        . "ALT=".$produit->getAltImage()." "
-                        . "WHERE ID_PRODUIT = ".$id;
+                if($isBD){
+                    $prod = [];
+                    $res = $bd->query("SELECT PRIX, TAXE FROM PRODUIT WHERE ID_PRODUIT = ". $id);
+                    if($res !== null) while($row = $res->fetch_assoc()){
+                        $prod['prix'] = (float) $row['PRIX'];
+                        $prod['taxe'] = (float) $row['TAXE'];
+                    }
+                }
+                if($prix !== $prod['prix'] || $taxe !== $prod['taxe']){
+                    $query = "INSERT INTO PRODUIT(NOM_PRODUIT,"
+                        . " DESCRIPTION,"
+                        . " CATEGORIE,"
+                        . " PRIX,"
+                        . " TAXE,"
+                        . " IMAGE,"
+                        . " ALT,"
+                        . " VISIBLE )"
+                        . " VALUES ('".$produit->getNom()."',"
+                        . " '".$produit->getDesc()."',"
+                        . " ".$produit->getCategorieID().","
+                        . " ".$produit->getPrix().","
+                        . " ".$produit->getTaxe().","
+                        . " ".$produit->getUrlImage().","
+                        . " ".$produit->getAltImage().","
+                        . " 'V'); "
+                        . "UPDATE PRODUIT SET VISIBLE ='I' WHERE ID_PRODUIT=" . $id . " ;";
+                }else{
+                    $query = "UPDATE PRODUIT SET NOM_PRODUIT='".$produit->getNom()."', "
+                            . "DESCRIPTION='".$produit->getDesc()."', "
+                            . "CATEGORIE=".$produit->getCategorieID().", "
+                            . "PRIX=".$produit->getPrix().", "
+                            . "TAXE=".$produit->getTaxe().", "
+                            . "IMAGE=".$produit->getUrlImage().", "
+                            . "ALT=".$produit->getAltImage()." "
+                            . "WHERE ID_PRODUIT = ".$id;
+                }
             }
-            if(!$bd->query($query)){
+            if(!$bd->multi_query($query)){
                 $erreurInsert = "Erreur d'insertion : " . $query . " : ". $bd->error;
             }else{
                 //$erreurInsert = "Query qui passe ? : " . $query;
