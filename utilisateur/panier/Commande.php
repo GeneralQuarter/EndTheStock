@@ -69,4 +69,22 @@ class Commande {
 
         }
     }
+    
+    function retirerLigne($id, $quantitee){
+        if($quantitee > 0){
+            /* @var $ligne LigneCommande*/
+            for($i=0; $i<count($this->lignes) ; $i++){
+                $ligne = unserialize($this->lignes[$i]);
+                if(unserialize($ligne->getProduit())->getId() == $id){
+                    if($ligne->getQuantitee()-$quantitee > 0){
+                        $ligne->setQuantitee($ligne->getQuantitee()-$quantitee);
+                        $this->lignes[$i] = serialize($ligne);
+                    }else{
+                        unset($this->lignes[$i]);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 }

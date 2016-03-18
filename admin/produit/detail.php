@@ -38,7 +38,6 @@
                     <h4 class="pull-left">Taxes : <?php echo $produit->getTaxe(); ?> %</h4>
                     <?php if($isUserConnected) { ?>
                     <form  action="../../utilisateur/panier/ajouter.php" method="POST">
-                        
                         <button type="submit" class="btn btn-primary pull-right" role="button" value=""><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"/></button>
                         <div class="input-group pull-right" style="width: 150px;"><span class="input-group-addon">Quantitée</span> <input class="form-control" type="number" value="1" min="1" style="width : 60px;" max="99" name="quantitee"/></div>
                         <input type="hidden" value="<?php echo base64_encode(serialize($produit)); ?>" name="produit"/>
@@ -47,6 +46,11 @@
                     <p class="pull-right">Connectez vous pour commander cet article</p>
                     <?php } ?>
                 </div>
+                <?php if($isUserConnected && $isUserAdmin) { ?>
+                <div class="row">
+                    <a href="editer.php?produit=<?php echo base64_encode(serialize($produit)); ?>" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modifier</a>
+                </div>
+                <?php } ?>
             </div>
         
     </div>

@@ -21,20 +21,37 @@ if($isCommande){
                 <th style="text-align: center;">Quantitée</th>
                 <th>Prix hors taxe</th>
                 <th>Prix avec taxe</th>
-                <th></th>
+                <th style="text-align: right">Retirer</th>
             </thead>
             <?php
             foreach ($commande->getLignes() as $ligne){ 
             $ligne=  unserialize($ligne);
             $produit = unserialize($ligne->getProduit()); 
             ?>
-            <tr onclick="document.location = '../../admin/produit/detail.php?id=<?php echo $produit->getId(); ?>';" style="cursor: pointer;">
+            <tr data-id="<?php echo $produit->getId(); ?>" style="cursor: pointer;">
                 <td class="vert-align" style="width: 100px;"><img src="<?php echo $documentRoot.$produit->getUrlImage(); ?>" alt="<?php echo $produit->getAltImage();?>" class="imagePanier"></td>
                 <td class="vert-align" style="width: 200px;"><?php echo $produit->getNom(); ?></td>
                 <td class="vert-align" style="text-align: center; width: 100px;"><?php echo $ligne->getQuantitee(); ?></td>
                 <td class="vert-align"><?php echo $ligne->getPrixHorsTaxeString(); ?> $ CAD</td>
                 <td class="vert-align"><?php echo $ligne->getPrixAvecTaxeString(); ?> $ CAD</td>
-                <td class="vert-align"><a class="btn btn-danger pull-right" href="#" role="button">Supprimer</a></td>
+                <td class="vert-align">
+                    <form class="form-inline pull-right" action="retirer.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $produit->getId() ?>" />
+                        <?php if($ligne->getQuantitee() === 1){ ?>
+                        <input type="hidden" name="quantitee" value="1" />
+                        <button class="btn btn-danger" name="submit" type="submit"> <span class="glyphicon glyphicon-trash"></span> </button>
+                        <?php }else{ ?>
+                        <div class="form-group">
+                            <div class="input-group" >
+                                <input class="form-control" type="number" value="1" min="1" max="<?php echo $ligne->getQuantitee() ?>" name="quantitee" />
+                                <div class="input-group-btn">
+                                    <button class="btn btn-danger" name="submit" type="submit"> <span class="glyphicon glyphicon-trash"></span> </button>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?> 
+                    </form>
+                </td>
             </tr>
         <?php } ?>
         </table>
@@ -48,7 +65,7 @@ if($isCommande){
                     $row['VILLE'], $row['DEPARTEMENT'], $row['REGION'] , $row['PAYS']);
             $adresseValide = true;
             }else{
-                $adresseValide = false;
+            $adresseValide = false;
         }
     }
     if($user->getAdresse_id()!== null && count($commande->getLignes())>0) {
@@ -112,3 +129,18 @@ if($isCommande){
 </div>
 
 <?php include '../../footer.php'; ?>
+
+<script>
+    
+$("tr").click(function(e){
+    document.location = '../../admin/produit/detail.php?id=' + $(this).data('id');
+});
+
+$("tr input").click(function(e){
+    e.stopPropagation();
+});
+
+$("tr button").click(function(e){
+    e.stopPropagation();
+});
+</script>
