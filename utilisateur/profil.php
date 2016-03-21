@@ -38,9 +38,9 @@ if($isUserConnected){
             echo '<p>'.$adresse->getDepartement() . ' ' . $adresse->getVille().'</p>';
             echo '<p>'.$adresse->getRegion().'</p>';
             echo '<p>'.$adresse->getPays().'</p>';
-            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Modifier votre adresse</button>';
+            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-default" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-pencil"></span> Modifier votre adresse</button>';
         }else{
-            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Ajouter votre adresse</button>';
+            echo '<button style="margin-top: -30px;margin-bottom:10px;" role="button" class="btn btn-default" data-toggle="modal" data-target="#editAdresse" data-id=""><span class="glyphicon glyphicon-plus"></span> Ajouter votre adresse</button>';
         }
         ?>
     </div>
@@ -49,7 +49,7 @@ if($isUserConnected){
     <table class="table table-hover">
             <thead>
                 <th>Date de la commande</th>
-                <th>Prix hors taxe</th>
+                <th>Prix hors taxes</th>
             </thead>
             <?php
             foreach ($commandes as $commande){
@@ -73,8 +73,8 @@ if($isUserConnected){
                 }
             ?>
             <tr>
-                <td class="vert-align" style="width: 200px;"><?php echo $commande->getDate(); ?></td>
-                <td class="vert-align" style="width: 100px;"><?php echo $prixHT; ?></td>
+                <td class="vert-align" style="width: 200px;"><?php echo date_format(new DateTime($commande->getDate()), 'Y-m-d'); ?></td>
+                <td class="vert-align" style="width: 100px;"><?php echo $prixHT; ?> $ CAD</td>
             </tr>
         <?php } ?>
         </table>
@@ -106,7 +106,7 @@ if($isUserConnected){
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <input type="submit" class="btn btn-success"  id="comfirmButton" value="Comfirmer">
+                <input type="submit" class="btn btn-success"  id="comfirmButton" value="Confirmer">
             </div>
             </form>
         </div>

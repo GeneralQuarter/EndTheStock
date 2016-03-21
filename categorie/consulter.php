@@ -1,16 +1,16 @@
 <?php
 
-include '../../header.php';
+include '../header.php';
 
 if(!$isUserConnected) {
-    header('Location: ../../');
+    header('Location: ../');
 }
 
 if(!$isUserAdmin){
-    header('Location: ../../403.php?page=editerProduit.php');
+    header('Location: ../403.php?page=editerProduit.php');
 }
 
-include '../../navbar.php'; 
+include '../navbar.php'; 
 
 ?>
 
@@ -62,7 +62,7 @@ include '../../navbar.php';
     </div>
 </div>
 
-<?php include '../../footer.php'; ?>
+<?php include '../footer.php'; ?>
 
 <script>
    $('#deleteCategory').on('show.bs.modal', function (event){

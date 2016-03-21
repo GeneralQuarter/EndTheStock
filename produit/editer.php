@@ -1,12 +1,12 @@
 <?php
-include '../../header.php';
+include '../header.php';
 
 if (!$isUserConnected) {
-    header('Location: ../../index.php');
+    header('Location: ../index.php');
 }
 
 if (!$isUserAdmin) {
-    header('Location: ../../403.php?page=editerProduit.php');
+    header('Location: ../403.php?page=editerProduit.php');
 }
 
 if($isBD){
@@ -86,7 +86,7 @@ if(isset($_POST) && !empty($_POST)){
     if(isset($_FILES['image']) && !empty($_FILES['image'])){
         $image = $_FILES['image'];
         $nom = "produit" . md5(uniqid(rand(), true));
-        $erreurUpload = upload('image', "../../img/produit/".$nom, 5242880, ['png','gif','bmp','jpg','jpeg']);
+        $erreurUpload = upload('image', "../img/produit/".$nom, 5242880, ['png','gif','bmp','jpg','jpeg']);
         if($id === null){
             $url = "'/img/produit/".$nom."'";
         }else if($id !== null ){
@@ -171,7 +171,7 @@ if(isset($_POST) && !empty($_POST)){
                 $erreurInsert = "Erreur d'insertion : " . $query . " : ". $bd->error;
             }else{
                 //$erreurInsert = "Query qui passe ? : " . $query;
-                header('Location: ../../');
+                header('Location: ../');
             }
         }
     }
@@ -179,7 +179,7 @@ if(isset($_POST) && !empty($_POST)){
 
 ?>
 
-<?php include '../../navbar.php'; ?>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -242,4 +242,4 @@ if(isset($_POST) && !empty($_POST)){
     </div>
 </div>
 
-<?php include '../../footer.php'; ?>
+<?php include '../footer.php'; ?>

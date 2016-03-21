@@ -1,4 +1,4 @@
-<?php include '../../header.php' ?>
+<?php include '../header.php' ?>
 
 
 <?php 
@@ -8,7 +8,7 @@
             if($id > 0){
                 $res = $bd->query('SELECT * FROM PRODUIT WHERE ID_PRODUIT='.$id);
             }else{
-               header('Location: ../../');
+               header('Location: ../');
             }
         }
     }
@@ -20,7 +20,7 @@
     }
 ?>    
 
-<?php include '../../navbar.php' ?>
+<?php include '../navbar.php' ?>
 
     <div class="container" style="padding-top: 2%;" >
     <div class="row">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <h4 class="pull-left">Taxes : <?php echo $produit->getTaxe(); ?> %</h4>
                     <?php if($isUserConnected) { ?>
-                    <form  action="../../utilisateur/panier/ajouter.php" method="POST">
+                    <form  action="../utilisateur/panier/ajouter.php" method="POST">
                         <button type="submit" class="btn btn-primary pull-right" role="button" value=""><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"/></button>
                         <div class="input-group pull-right" style="width: 150px;"><span class="input-group-addon">Quantitée</span> <input class="form-control" type="number" value="1" min="1" style="width : 60px;" max="99" name="quantitee"/></div>
                         <input type="hidden" value="<?php echo base64_encode(serialize($produit)); ?>" name="produit"/>
@@ -57,4 +57,4 @@
 </div>
 
 
-<?php include '../../footer.php' ?>
+<?php include '../footer.php' ?>

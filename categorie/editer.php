@@ -1,13 +1,13 @@
 <?php
 
-include '../../header.php';
+include '../header.php';
 
 if(!$isUserConnected) {
-    header('Location: ../../index.php');
+    header('Location: ../index.php');
 }
 
 if(!$isUserAdmin){
-    header('Location: ../../403.php?page=editerProduit.php');
+    header('Location: ../403.php?page=editerProduit.php');
 }
 
 if(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS) !== false){

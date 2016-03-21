@@ -1,6 +1,11 @@
 <?php 
-    include '../../header.php';
-    include '../../navbar.php';
+include '../../header.php';
+
+if(!$isUserConnected) {
+    header('Location: ../../');
+}
+    
+include '../../navbar.php';
 
 if ($isCommande) {
     if ($isBD) {

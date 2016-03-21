@@ -28,7 +28,6 @@ if ($isBD) {
                 <th>Courriel</th>
                 <th>Téléphone</th>
                 <th>Commandes passées</th>
-                <th></th>
             </tr>
             <?php if($res !== false) while ($row = $res->fetch_assoc()) { 
                 if ($isBD) {
@@ -43,11 +42,6 @@ if ($isBD) {
                     <td class="vert-align"><?php echo $row['COURRIEL']; ?></td>
                     <td class="vert-align"><?php echo $row['TELEPHONE']; ?></td>
                     <td class="vert-align"><?php echo $nbrCommande['nbr'];?></td>
-    <?php if ($row['ID_UTILISATEUR'] !== $user->getId()) { ?>
-                        <td class="vert-align"><a role="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteUser" data-nom="<?php echo $row['PRENOM_CLIENT']. ' '.$row['NOM_CLIENT'] ?>" data-id="<?php echo $row['ID_UTILISATEUR']?>"><span class="glyphicon glyphicon-trash"></span></a></td>
-                    <?php }else{ ?>
-                        <td></td>
-                    <?php }?>
                 </tr>
                 <?php }
                 ?>

@@ -3,8 +3,8 @@
 session_start();
 
 include 'utilisateur/User.php';
-include 'admin/categorie/Categorie.php';
-include 'admin/produit/Produit.php';
+include 'categorie/Categorie.php';
+include 'produit/Produit.php';
 include 'utilisateur/adresse/Adresse.php';
 include 'utilisateur/panier/LigneCommande.php';
 include 'utilisateur/panier/Commande.php';

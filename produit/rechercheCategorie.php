@@ -1,5 +1,5 @@
-<?php include '../../header.php' ?>
-<?php include '../../navbar.php' ?>
+<?php include '../header.php' ?>
+<?php include '../navbar.php' ?>
 
 <?php 
     $r = false;
@@ -32,12 +32,11 @@
             <h2 class="titreRubrique"><?php echo $c; ?> </h2>
             <BR>
             <table class="table table-hover">
-            <THEAD>
+            <thead>
                 <th>Produit</th>
                 <th></th> 
                 <th>Prix</th>
-                <th></th>
-            </THEAD>
+            </thead>
             <?php
             foreach ($produits as $produit){ 
                 if($produit->getVisible() !== 'I'){
@@ -55,4 +54,4 @@
     </div>
 </div>
 
-<?php include '../../footer.php' ?>
+<?php include '../footer.php' ?>
